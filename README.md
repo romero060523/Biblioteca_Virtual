@@ -66,11 +66,11 @@ Sistema de gestión de libros y préstamos desarrollado en Laravel + Oracle.
 - Laravel
 - Oracle Database
 - Tailwind CSS
-- Yarn
 - Composer
 - PHP OCI8
 
 ## Notas
+- Los scripts de la base de datos estan en la carpeta /database/sql , seguir los pasos para ejecutarlo.
 - Los reportes rápidos y algunas funciones avanzadas estan deshabilitadas o en desarrollo.
 - Para producción, asegúrate de compilar los assets con `npm run build`.
 
