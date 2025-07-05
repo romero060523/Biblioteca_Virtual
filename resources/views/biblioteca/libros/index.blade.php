@@ -56,6 +56,11 @@
                         <option value="Tecnología" {{ request('categoria') == 'Tecnología' ? 'selected' : '' }}>Tecnología</option>
                         <option value="Historia" {{ request('categoria') == 'Historia' ? 'selected' : '' }}>Historia</option>
                         <option value="Literatura" {{ request('categoria') == 'Literatura' ? 'selected' : '' }}>Literatura</option>
+                        <option value="Filosofía" {{ request('categoria') == 'Filosofía' ? 'selected' : '' }}>Filosofía</option>
+                        <option value="Psicología" {{ request('categoria') == 'Psicología' ? 'selected' : '' }}>Psicología</option>
+                        <option value="Economía" {{ request('categoria') == 'Economía' ? 'selected' : '' }}>Economía</option>
+                        <option value="Arte" {{ request('categoria') == 'Arte' ? 'selected' : '' }}>Arte</option>
+                        <option value="Otros" {{ request('categoria') == 'Otros' ? 'selected' : '' }}>Otros</option>
                     </select>
                 </div>
 
@@ -143,9 +148,6 @@
                                     <div class="text-sm font-medium text-gray-900">
                                         {{ $libro['TITULO'] }}
                                     </div>
-                                    <div class="text-sm text-gray-500">
-                                        ISBN: {{ $libro['ISBN'] }}
-                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -197,13 +199,6 @@
                 </tbody>
             </table>
         </div>
-
-        <!-- Paginación -->
-        @if(isset($libros) && method_exists($libros, 'links'))
-            <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
-                {{ $libros->appends(request()->query())->links() }}
-            </div>
-        @endif
     @else
         <!-- Estado vacío -->
         <div class="text-center py-12">

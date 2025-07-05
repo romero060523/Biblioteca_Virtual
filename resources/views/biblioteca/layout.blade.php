@@ -27,47 +27,17 @@
                     </div>
                     
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="{{ route('biblioteca.libros.index') }}" 
-                           class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="fas fa-books mr-1"></i>
-                            Libros
+                        <a href="{{ route('biblioteca.libros.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium {{ request()->routeIs('biblioteca.libros.*') ? 'border-blue-500 text-blue-700' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                            <i class="fas fa-book mr-1"></i> Libros
                         </a>
-                        <a href="{{ route('biblioteca.prestamos.index') }}" 
-                           class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="fas fa-handshake mr-1"></i>
-                            Préstamos
-                        </a>
-                        <a href="{{ route('biblioteca.reportes.index') }}" 
-                           class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="fas fa-chart-bar mr-1"></i>
-                            Reportes
+                        <a href="{{ route('biblioteca.prestamos.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium {{ request()->routeIs('biblioteca.prestamos.*') ? 'border-green-500 text-green-700' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                            <i class="fas fa-handshake mr-1"></i> Préstamos
                         </a>
                     </div>
                 </div>
                 
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                    <div class="ml-3 relative">
-                        <div class="relative inline-block text-left">
-                            <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="admin-menu-button" aria-expanded="true" aria-haspopup="true">
-                                <i class="fas fa-user mr-2"></i>
-                                Administración
-                                <i class="fas fa-chevron-down ml-2"></i>
-                            </button>
-                            
-                            <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" id="admin-menu">
-                                <div class="py-1" role="none">
-                                    <a href="{{ route('biblioteca.usuarios.index') }}" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">
-                                        <i class="fas fa-users mr-2"></i>
-                                        Usuarios
-                                    </a>
-                                    <a href="{{ route('biblioteca.configuracion') }}" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">
-                                        <i class="fas fa-cog mr-2"></i>
-                                        Configuración
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Eliminado: Botón de administración vacío -->
                 </div>
                 
                 <!-- Mobile menu button -->
@@ -89,10 +59,6 @@
                 <a href="{{ route('biblioteca.prestamos.index') }}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
                     <i class="fas fa-handshake mr-2"></i>
                     Préstamos
-                </a>
-                <a href="{{ route('biblioteca.reportes.index') }}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
-                    <i class="fas fa-chart-bar mr-2"></i>
-                    Reportes
                 </a>
             </div>
         </div>
@@ -178,7 +144,7 @@
             <div class="text-center">
                 <p class="text-gray-500 text-sm">
                     <i class="fas fa-copyright mr-1"></i>
-                    2024 Biblioteca Virtual - Sistema de Gestión de Préstamos
+                    2025 Biblioteca Virtual - Sistema de Gestión de Préstamos
                 </p>
             </div>
         </div>
@@ -191,22 +157,6 @@
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
-        });
-
-        // Admin dropdown toggle
-        document.getElementById('admin-menu-button').addEventListener('click', function() {
-            const adminMenu = document.getElementById('admin-menu');
-            adminMenu.classList.toggle('hidden');
-        });
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            const adminMenu = document.getElementById('admin-menu');
-            const adminButton = document.getElementById('admin-menu-button');
-            
-            if (!adminButton.contains(event.target)) {
-                adminMenu.classList.add('hidden');
-            }
         });
     </script>
 </body>

@@ -65,10 +65,6 @@
                                 <dd class="text-sm text-gray-900">{{ $libro['AUTOR'] }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">ISBN</dt>
-                                <dd class="text-sm text-gray-900 font-mono">{{ $libro['ISBN'] }}</dd>
-                            </div>
-                            <div>
                                 <dt class="text-sm font-medium text-gray-500">Categoría</dt>
                                 <dd class="text-sm text-gray-900">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">

@@ -7,105 +7,13 @@
 <div class="mb-8">
     <h1 class="text-3xl font-bold text-gray-900">
         <i class="fas fa-tachometer-alt text-blue-600 mr-3"></i>
-        Dashboard
+        BIENVENIDO
     </h1>
     <p class="mt-2 text-gray-600">Panel de control de la Biblioteca Virtual</p>
 </div>
 
 <!-- Estadísticas -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-    <!-- Total de Libros -->
-    <div class="bg-white overflow-hidden shadow rounded-lg">
-        <div class="p-5">
-            <div class="flex items-center">
-                <div class="flex-shrink-0">
-                    <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
-                        <i class="fas fa-books text-white text-sm"></i>
-                    </div>
-                </div>
-                <div class="ml-5 w-0 flex-1">
-                    <dl>
-                        <dt class="text-sm font-medium text-gray-500 truncate">
-                            Total de Libros
-                        </dt>
-                        <dd class="text-lg font-medium text-gray-900">
-                            {{ $stats['total_libros'] ?? 0 }}
-                        </dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Libros Disponibles -->
-    <div class="bg-white overflow-hidden shadow rounded-lg">
-        <div class="p-5">
-            <div class="flex items-center">
-                <div class="flex-shrink-0">
-                    <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
-                        <i class="fas fa-book text-white text-sm"></i>
-                    </div>
-                </div>
-                <div class="ml-5 w-0 flex-1">
-                    <dl>
-                        <dt class="text-sm font-medium text-gray-500 truncate">
-                            Libros Disponibles
-                        </dt>
-                        <dd class="text-lg font-medium text-gray-900">
-                            {{ $stats['libros_disponibles'] ?? 0 }}
-                        </dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Préstamos Activos -->
-    <div class="bg-white overflow-hidden shadow rounded-lg">
-        <div class="p-5">
-            <div class="flex items-center">
-                <div class="flex-shrink-0">
-                    <div class="w-8 h-8 bg-yellow-500 rounded-md flex items-center justify-center">
-                        <i class="fas fa-handshake text-white text-sm"></i>
-                    </div>
-                </div>
-                <div class="ml-5 w-0 flex-1">
-                    <dl>
-                        <dt class="text-sm font-medium text-gray-500 truncate">
-                            Préstamos Activos
-                        </dt>
-                        <dd class="text-lg font-medium text-gray-900">
-                            {{ $stats['prestamos_activos'] ?? 0 }}
-                        </dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Usuarios Registrados -->
-    <div class="bg-white overflow-hidden shadow rounded-lg">
-        <div class="p-5">
-            <div class="flex items-center">
-                <div class="flex-shrink-0">
-                    <div class="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center">
-                        <i class="fas fa-users text-white text-sm"></i>
-                    </div>
-                </div>
-                <div class="ml-5 w-0 flex-1">
-                    <dl>
-                        <dt class="text-sm font-medium text-gray-500 truncate">
-                            Usuarios Registrados
-                        </dt>
-                        <dd class="text-lg font-medium text-gray-900">
-                            {{ $stats['total_usuarios'] ?? 0 }}
-                        </dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{{-- Eliminado: tarjetas de estadísticas que no funcionan --}}
 
 <!-- Acciones Rápidas -->
 <div class="bg-white shadow rounded-lg mb-8">
@@ -124,16 +32,6 @@
                class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
                 <i class="fas fa-handshake mr-2"></i>
                 Registrar Préstamo
-            </a>
-            <a href="{{ route('biblioteca.libros.buscar') }}" 
-               class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                <i class="fas fa-search mr-2"></i>
-                Buscar Libros
-            </a>
-            <a href="{{ route('biblioteca.prestamos.vencidos') }}" 
-               class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors">
-                <i class="fas fa-exclamation-triangle mr-2"></i>
-                Préstamos Vencidos
             </a>
         </div>
     </div>
@@ -226,21 +124,18 @@
             Reportes Rápidos
         </h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <a href="{{ route('biblioteca.reportes.libros-mas-prestados') }}" 
-               class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                <i class="fas fa-star text-yellow-500 mr-2"></i>
+            <button disabled class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed">
+                <i class="fas fa-star text-gray-400 mr-2"></i>
                 Libros Más Prestados
-            </a>
-            <a href="{{ route('biblioteca.reportes.historial') }}" 
-               class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                <i class="fas fa-history text-gray-500 mr-2"></i>
+            </button>
+            <button disabled class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed">
+                <i class="fas fa-history text-gray-400 mr-2"></i>
                 Historial de Préstamos
-            </a>
-            <a href="{{ route('biblioteca.reportes.estadisticas') }}" 
-               class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                <i class="fas fa-chart-pie text-blue-500 mr-2"></i>
+            </button>
+            <button disabled class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed">
+                <i class="fas fa-chart-pie text-gray-400 mr-2"></i>
                 Estadísticas Generales
-            </a>
+            </button>
         </div>
     </div>
 </div>
