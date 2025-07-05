@@ -22,9 +22,3 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-BIBLIOTECA_API.md 
-PASOS_INSTALACION.md
-
-# Archivos SQL de base de datos
-database/sql/*.sql
-*.sql

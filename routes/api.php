@@ -19,24 +19,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// =====================================================
-// RUTAS API PARA BIBLIOTECA VIRTUAL
-// =====================================================
 
+// RUTAS API PARA BIBLIOTECA VIRTUAL
 Route::prefix('biblioteca')->group(function () {
     
-    // =====================================================
+
     // API PARA DASHBOARD
-    // =====================================================
-    
     Route::get('/stats', [BibliotecaController::class, 'getStats']);
     Route::get('/libros-recientes', [BibliotecaController::class, 'getLibrosRecientes']);
     Route::get('/prestamos-recientes', [BibliotecaController::class, 'getPrestamosRecientes']);
     
-    // =====================================================
+
     // API PARA LIBROS
-    // =====================================================
-    
     Route::prefix('libros')->group(function () {
         Route::get('/', [BibliotecaController::class, 'indexLibros']);
         Route::get('/{id}', [BibliotecaController::class, 'showLibro']);
@@ -48,10 +42,8 @@ Route::prefix('biblioteca')->group(function () {
         Route::get('/{id}/disponibilidad', [BibliotecaController::class, 'checkDisponibilidad']);
     });
     
-    // =====================================================
+
     // API PARA PRÉSTAMOS
-    // =====================================================
-    
     Route::prefix('prestamos')->group(function () {
         Route::post('/', [BibliotecaController::class, 'registrarPrestamo']);
         Route::patch('/{id}/devolver', [BibliotecaController::class, 'devolverLibro']);
@@ -64,10 +56,8 @@ Route::prefix('biblioteca')->group(function () {
         Route::put('/actualizar-estados/vencidos', [BibliotecaController::class, 'actualizarEstadosVencidos']);
     });
     
-    // =====================================================
+
     // API PARA USUARIOS
-    // =====================================================
-    
     Route::prefix('usuarios')->group(function () {
         Route::get('/', [BibliotecaController::class, 'indexUsuarios']);
         Route::get('/{id}', [BibliotecaController::class, 'showUsuario']);
@@ -78,10 +68,8 @@ Route::prefix('biblioteca')->group(function () {
         Route::get('/{id}/info', [BibliotecaController::class, 'getUsuarioInfo']);
     });
     
-    // =====================================================
-    // API PARA REPORTES
-    // =====================================================
     
+    // API PARA REPORTES
     Route::prefix('reportes')->group(function () {
         Route::get('/estadisticas-generales', [BibliotecaController::class, 'getStats']);
         Route::get('/libros-mas-prestados', [BibliotecaController::class, 'librosMasPrestados']);

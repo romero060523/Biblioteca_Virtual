@@ -8,20 +8,16 @@ Route::get('/', function () {
     return redirect()->route('biblioteca.dashboard');
 });
 
-// =====================================================
-// RUTAS DE PRUEBA
-// =====================================================
 
+// RUTAS DE PRUEBA
 Route::prefix('test')->group(function () {
     Route::get('/connection', [TestController::class, 'testConnection']);
     Route::get('/procedures', [TestController::class, 'testProcedures']);
     Route::get('/data', [TestController::class, 'testData']);
 });
 
-// =====================================================
-// RUTAS PARA BIBLIOTECA VIRTUAL
-// =====================================================
 
+// RUTAS PARA BIBLIOTECA VIRTUAL
 Route::prefix('biblioteca')->name('biblioteca.')->group(function () {
     
     // DASHBOARD PRINCIPAL

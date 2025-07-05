@@ -265,10 +265,8 @@ class BibliotecaController extends Controller
         }
     }
     
-    // =====================================================
+
     // GESTIÓN DE PRÉSTAMOS
-    // =====================================================
-    
     /**
      * Registrar un nuevo préstamo
      */
@@ -533,9 +531,8 @@ class BibliotecaController extends Controller
         }
     }
 
-    // =====================================================
+
     // DASHBOARD PRINCIPAL
-    // =====================================================
     public function dashboard()
     {
         try {
@@ -558,10 +555,8 @@ class BibliotecaController extends Controller
         ]);
     }
 
-    // =====================================================
+
     // VISTAS WEB PARA LIBROS
-    // =====================================================
-    
     /**
      * Mostrar vista de lista de libros
      */
@@ -803,10 +798,8 @@ class BibliotecaController extends Controller
         }
     }
 
-    // =====================================================
+
     // VISTAS WEB PARA PRÉSTAMOS
-    // =====================================================
-    
     /**
      * Mostrar vista de lista de préstamos
      */
@@ -1094,10 +1087,8 @@ class BibliotecaController extends Controller
         }
     }
 
-    // =====================================================
+
     // VISTAS WEB PARA USUARIOS
-    // =====================================================
-    
     /**
      * Mostrar vista de lista de usuarios
      */
@@ -1287,10 +1278,8 @@ class BibliotecaController extends Controller
         }
     }
 
-    // =====================================================
+
     // VISTAS WEB PARA REPORTES
-    // =====================================================
-    
     /**
      * Mostrar estadísticas generales
      */
@@ -1396,10 +1385,8 @@ class BibliotecaController extends Controller
         }
     }
 
-    // =====================================================
+
     // VISTAS WEB PARA BÚSQUEDA
-    // =====================================================
-    
     /**
      * Búsqueda general
      */
@@ -1546,10 +1533,8 @@ class BibliotecaController extends Controller
         }
     }
 
-    // =====================================================
+
     // API METHODS (AJAX)
-    // =====================================================
-    
     /**
      * Obtener estadísticas para el dashboard
      */

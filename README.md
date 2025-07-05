@@ -59,3 +59,72 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Biblioteca Virtual
+
+Sistema de gestión de libros y préstamos desarrollado en Laravel + Oracle.
+
+## Requisitos
+
+- PHP >= 8.0
+- Composer
+- Node.js y Yarn
+- Oracle Database (y extensión PHP OCI8)
+
+## Instalación
+
+1. **Clona el repositorio:**
+   ```bash
+   git clone https://github.com/romero060523/Biblioteca_Virtual
+   ```
+
+2. **Instala las dependencias de PHP:**
+   ```bash
+   composer install
+   ```
+
+3. **Instala las dependencias de Node.js:**
+   ```bash
+   npm install
+   ```
+
+4. **Configura el entorno:**
+   - Copia el archivo `.env.example` a `.env` y edítalo con tus credenciales de Oracle y configuración local.
+   - Genera la clave de la app:
+     ```bash
+     php artisan key:generate
+     ```
+
+5. **Compila los assets (CSS/JS) con Tailwind:**
+   ```bash
+   npm run dev
+   # o para producción
+   npm run build
+   ```
+
+6. **Configura la base de datos Oracle:**
+   - Ejecuta los scripts en `database/sql/` para crear las tablas y procedimientos necesarios.
+   - Asegúrate de tener la extensión OCI8 habilitada en PHP.
+
+7. **Inicia el servidor de desarrollo:**
+   ```bash
+   php artisan serve
+   ```
+
+8. **Accede a la aplicación:**
+   - Abre tu navegador en [http://localhost:8000/biblioteca](http://localhost:8000/biblioteca)
+
+## Herramientas y tecnologías usadas
+
+- Laravel
+- Oracle Database
+- Tailwind CSS
+- Yarn
+- Composer
+- PHP OCI8
+
+## Notas
+- Los reportes rápidos y algunas funciones avanzadas estan deshabilitadas o en desarrollo.
+- Para producción, asegúrate de compilar los assets con `npm run build`.
+
+---
