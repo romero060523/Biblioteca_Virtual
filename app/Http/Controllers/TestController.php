@@ -36,20 +36,19 @@ class TestController extends Controller
     public function testProcedures()
     {
         try {
-            // Probar procedimiento de listar libros
+            // Probar procedimiento de listar libros (con parámetros por defecto)
             $libros = $this->oracleService->executeProcedureWithCursor(
                 'PKG_LIBROS.LISTAR_LIBROS',
                 [
                     'p_categoria' => null,
-                    'p_autor' => null,
-                    'p_cursor' => null
+                    'p_autor' => null
                 ]
             );
 
             // Probar procedimiento de libros disponibles
             $disponibles = $this->oracleService->executeProcedureWithCursor(
                 'PKG_LIBROS.OBTENER_LIBROS_DISPONIBLES',
-                ['p_cursor' => null]
+                []
             );
 
             return response()->json([
@@ -72,7 +71,7 @@ class TestController extends Controller
     public function testData()
     {
         try {
-            // Verificar datos de prueba
+            // Verificar datos de prueba con más información de debug
             $usuarios = $this->oracleService->executeQuery(
                 'SELECT COUNT(*) as total FROM usuarios'
             );
@@ -85,13 +84,29 @@ class TestController extends Controller
                 'SELECT COUNT(*) as total FROM prestamos'
             );
 
+            // También obtener información del esquema
+            $schemas = $this->oracleService->executeQuery(
+                'SELECT USER FROM DUAL'
+            );
+
+            $tables = $this->oracleService->executeQuery(
+                "SELECT table_name FROM user_tables WHERE table_name IN ('USUARIOS', 'LIBROS', 'PRESTAMOS')"
+            );
+
             return response()->json([
                 'success' => true,
                 'message' => 'Datos de prueba verificados',
                 'data' => [
-                    'usuarios' => $usuarios[0]['TOTAL'] ?? 0,
-                    'libros' => $libros[0]['TOTAL'] ?? 0,
-                    'prestamos' => $prestamos[0]['TOTAL'] ?? 0
+                    'usuarios' => $usuarios[0]['total'] ?? 0,
+                    'libros' => $libros[0]['total'] ?? 0,
+                    'prestamos' => $prestamos[0]['total'] ?? 0,
+                    'debug' => [
+                        'usuario_actual' => $schemas[0]['USER'] ?? 'Desconocido',
+                        'tablas_encontradas' => array_column($tables, 'TABLE_NAME'),
+                        'consulta_usuarios' => $usuarios,
+                        'consulta_libros' => $libros,
+                        'consulta_prestamos' => $prestamos
+                    ]
                 ]
             ]);
         } catch (\Exception $e) {

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Services;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PDO;
@@ -68,54 +67,65 @@ class OracleService
     }
 
     /**
-     * Ejecutar un procedimiento que retorna un cursor
+     * Ejecutar un procedimiento que retorna un cursor usando OCI8 nativo
      */
     public function executeProcedureWithCursor(string $procedureName, array $parameters = [], string $cursorParam = 'p_cursor'): array
     {
         try {
-            $pdo = $this->connection->getPdo();
+            // Obtener el recurso OCI8 de la forma más compatible
+            $oci = null;
+
+            // Usar la propiedad 'pdo' que está disponible
+            $reflection = new \ReflectionClass($this->connection);
+            $pdoProperty = $reflection->getProperty('pdo');
+            $pdoProperty->setAccessible(true);
+            $pdo = $pdoProperty->getValue($this->connection);
             
+            // Acceder al recurso OCI8 desde la propiedad 'dbh' del PDO
+            $pdoReflection = new \ReflectionClass($pdo);
+            $dbhProperty = $pdoReflection->getProperty('dbh');
+            $dbhProperty->setAccessible(true);
+            $oci = $dbhProperty->getValue($pdo);
+
+            if (!$oci || !is_resource($oci)) {
+                throw new \Exception('No se pudo acceder al recurso OCI8 desde dbh.');
+            }
+
             // Construir la llamada al procedimiento
             $paramPlaceholders = [];
-            $paramNames = [];
-            
             foreach ($parameters as $name => $value) {
                 $paramPlaceholders[] = ":$name";
-                $paramNames[] = $name;
             }
-            
+            $paramPlaceholders[] = ":$cursorParam";
             $sql = "BEGIN $procedureName(" . implode(', ', $paramPlaceholders) . "); END;";
-            
-            $stmt = $pdo->prepare($sql);
-            
-            // Bind de parámetros
-            foreach ($parameters as $name => $value) {
-                if ($name === $cursorParam) {
-                    $stmt->bindParam(":$name", $cursor, PDO::PARAM_STMT);
-                } elseif ($value === null) {
-                    $stmt->bindValue(":$name", null, PDO::PARAM_NULL);
-                } elseif (is_bool($value)) {
-                    $stmt->bindValue(":$name", $value ? 1 : 0, PDO::PARAM_INT);
-                } elseif (is_int($value)) {
-                    $stmt->bindValue(":$name", $value, PDO::PARAM_INT);
-                } else {
-                    $stmt->bindValue(":$name", $value, PDO::PARAM_STR);
-                }
+
+            // Preparar la sentencia usando OCI8
+            $stmt = oci_parse($oci, $sql);
+
+            // Bind de parámetros de entrada
+            foreach ($parameters as $name => &$value) {
+                oci_bind_by_name($stmt, ":$name", $value);
+            }
+
+            // Bind del cursor de salida
+            $refCursor = oci_new_cursor($oci);
+            oci_bind_by_name($stmt, ":$cursorParam", $refCursor, -1, OCI_B_CURSOR);
+
+            // Ejecutar la sentencia y el cursor
+            oci_execute($stmt);
+            oci_execute($refCursor);
+
+            // Obtener los resultados
+            $rows = [];
+            while (($row = oci_fetch_assoc($refCursor)) != false) {
+                $rows[] = $row;
             }
             
-            $stmt->execute();
-            
-            // Obtener datos del cursor
-            $results = [];
-            if (isset($cursor) && $cursor) {
-                while ($row = oci_fetch_array($cursor, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                    $results[] = $row;
-                }
-                oci_free_statement($cursor);
-            }
-            
-            return $results;
-            
+            // Liberar recursos
+            oci_free_statement($stmt);
+            oci_free_statement($refCursor);
+
+            return $rows;
         } catch (\Exception $e) {
             Log::error("Error ejecutando procedimiento con cursor $procedureName: " . $e->getMessage());
             throw $e;

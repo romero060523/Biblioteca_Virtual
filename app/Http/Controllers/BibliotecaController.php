@@ -33,12 +33,11 @@ class BibliotecaController extends Controller
             $categoria = $request->get('categoria');
             $autor = $request->get('autor');
 
-            $result = $this->oracleService->executeProcedure(
+            $result = $this->oracleService->executeProcedureWithCursor(
                 'PKG_LIBROS.LISTAR_LIBROS',
                 [
                     'p_categoria' => $categoria,
-                    'p_autor' => $autor,
-                    'p_cursor' => null
+                    'p_autor' => $autor
                 ]
             );
 
@@ -61,11 +60,10 @@ class BibliotecaController extends Controller
     public function showLibro($id): JsonResponse
     {
         try {
-            $result = $this->oracleService->executeProcedure(
+            $result = $this->oracleService->executeProcedureWithCursor(
                 'PKG_LIBROS.OBTENER_LIBRO',
                 [
-                    'p_libro_id' => $id,
-                    'p_cursor' => null
+                    'p_libro_id' => $id
                 ]
             );
 
@@ -219,11 +217,10 @@ class BibliotecaController extends Controller
         }
 
         try {
-            $result = $this->oracleService->executeProcedure(
+            $result = $this->oracleService->executeProcedureWithCursor(
                 'PKG_LIBROS.BUSCAR_LIBROS',
                 [
-                    'p_termino' => $request->termino,
-                    'p_cursor' => null
+                    'p_termino' => $request->termino
                 ]
             );
 
@@ -246,9 +243,9 @@ class BibliotecaController extends Controller
     public function librosDisponibles(): JsonResponse
     {
         try {
-            $result = $this->oracleService->executeProcedure(
+            $result = $this->oracleService->executeProcedureWithCursor(
                 'PKG_LIBROS.OBTENER_LIBROS_DISPONIBLES',
-                ['p_cursor' => null]
+                []
             );
 
             return response()->json([
@@ -340,11 +337,10 @@ class BibliotecaController extends Controller
     public function showPrestamo($id): JsonResponse
     {
         try {
-            $result = $this->oracleService->executeProcedure(
+            $result = $this->oracleService->executeProcedureWithCursor(
                 'PKG_PRESTAMOS.OBTENER_PRESTAMO',
                 [
-                    'p_prestamo_id' => $id,
-                    'p_cursor' => null
+                    'p_prestamo_id' => $id
                 ]
             );
 
@@ -376,12 +372,11 @@ class BibliotecaController extends Controller
         try {
             $estado = $request->get('estado');
 
-            $result = $this->oracleService->executeProcedure(
+            $result = $this->oracleService->executeProcedureWithCursor(
                 'PKG_PRESTAMOS.LISTAR_PRESTAMOS_USUARIO',
                 [
                     'p_usuario_id' => $usuarioId,
-                    'p_estado' => $estado,
-                    'p_cursor' => null
+                    'p_estado' => $estado
                 ]
             );
 
@@ -404,11 +399,10 @@ class BibliotecaController extends Controller
     public function prestamosLibro($libroId): JsonResponse
     {
         try {
-            $result = $this->oracleService->executeProcedure(
+            $result = $this->oracleService->executeProcedureWithCursor(
                 'PKG_PRESTAMOS.LISTAR_PRESTAMOS_LIBRO',
                 [
-                    'p_libro_id' => $libroId,
-                    'p_cursor' => null
+                    'p_libro_id' => $libroId
                 ]
             );
 
@@ -431,9 +425,9 @@ class BibliotecaController extends Controller
     public function prestamosVencidos(): JsonResponse
     {
         try {
-            $result = $this->oracleService->executeProcedure(
+            $result = $this->oracleService->executeProcedureWithCursor(
                 'PKG_PRESTAMOS.OBTENER_PRESTAMOS_VENCIDOS',
-                ['p_cursor' => null]
+                []
             );
 
             return response()->json([
@@ -458,12 +452,11 @@ class BibliotecaController extends Controller
             $fechaInicio = $request->get('fecha_inicio');
             $fechaFin = $request->get('fecha_fin');
 
-            $result = $this->oracleService->executeProcedure(
+            $result = $this->oracleService->executeProcedureWithCursor(
                 'PKG_PRESTAMOS.OBTENER_HISTORIAL_PRESTAMOS',
                 [
                     'p_fecha_inicio' => $fechaInicio,
-                    'p_fecha_fin' => $fechaFin,
-                    'p_cursor' => null
+                    'p_fecha_fin' => $fechaFin
                 ]
             );
 
@@ -475,7 +468,7 @@ class BibliotecaController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al obtener historial: ' . $e->getMessage()
+                'message' => 'Error al obtener historial de préstamos: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -488,11 +481,10 @@ class BibliotecaController extends Controller
         try {
             $limite = $request->get('limite', 10);
 
-            $result = $this->oracleService->executeProcedure(
+            $result = $this->oracleService->executeProcedureWithCursor(
                 'PKG_PRESTAMOS.OBTENER_LIBROS_MAS_PRESTADOS',
                 [
-                    'p_limite' => $limite,
-                    'p_cursor' => null
+                    'p_limite' => $limite
                 ]
             );
 
