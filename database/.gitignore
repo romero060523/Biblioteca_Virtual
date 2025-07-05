@@ -1,1 +1,3 @@
 *.sqlite*
+biblioteca_procedures.sql
+crear_tablas_biblioteca.sql
